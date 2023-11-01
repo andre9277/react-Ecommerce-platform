@@ -1,14 +1,17 @@
-import {Routes, Route} from "react-router-dom"
-import { Container } from "react-bootstrap"
-import Home from "./pages/Home"
-import Store from "./pages/Store"
-import About from "./pages/About"
+import {Routes, Route} from "react-router-dom";
+import { Container } from "react-bootstrap";
+import Home from "./pages/Home";
+import Store from "./pages/Store";
+import About from "./pages/About";
+import NavBar from "./components/NavBar";
 
 //Responsible for routing and generic code
 function App() {
  
 
   return (
+    <>
+    <NavBar />
     <Container className="mb-4"> {/* add a margin  */}
       <Routes>
         <Route path="/" element={<Home />}/>
@@ -16,6 +19,7 @@ function App() {
         <Route path="/about" element={<About />}/>
       </Routes>
     </Container>
+    </>
   )
 }
 
