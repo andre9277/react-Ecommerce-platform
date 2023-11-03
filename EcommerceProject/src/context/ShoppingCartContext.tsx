@@ -45,7 +45,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   //opens the cart menu
   const openCart = () => setIsOpen(true);
   //closes the cart menu
-  const closeCart = () => setIsOpen(true);
+  const closeCart = () => setIsOpen(false);
 
   function getItemQuantity(id: number) {
     /* if we have the value i want to return this getItemQuantity, otherwise return 0 */
