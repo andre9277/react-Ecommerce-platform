@@ -1,4 +1,5 @@
 require("dotenv").config(); // library to handle .env files
+const cors = require("cors"); // Import the CORS middleware
 
 const express = require("express");
 
@@ -8,6 +9,12 @@ const itemsRoutes = require("./routes/items");
 
 //start the express server
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 //Middleware (logs the request coming in)
 
