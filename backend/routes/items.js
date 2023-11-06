@@ -1,5 +1,7 @@
 const express = require("express");
 
+const Item = require("../models/itemModel");
+
 //creates the router
 const router = express.Router();
 
@@ -14,8 +16,18 @@ router.get("/:id", (req, res) => {
 });
 
 //POST a new item
-router.post("/", (req, res) => {
-  res.json({ mssg: "POST a new item" });
+router.post("/", async (req, res) => {
+  //destruct the req
+  const { title, price, imgURL } = req.body;
+
+  try {
+    //create a new item ( a new document)
+    const item = await Item.create({ title, price, imgURL });
+    //response if the item was created
+    res.status(200).json(item);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 //DELETE a item
