@@ -45,7 +45,44 @@ const createItem = async (req, res) => {
 };
 
 //Delete item
+const deleteItem = async (req, res) => {
+  const { id } = req.params;
+
+  //Checks if id is valid (so app does not crash)
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such item" });
+  }
+
+  const item = await Item.findOneAndDelete({ _id: id });
+
+  if (!item) {
+    return res.status(404).json({ error: "No such item" });
+  }
+
+  res.status(200).json(item);
+};
 
 //Update item
+const updateItem = async (req, res) => {
+  const { id } = req.params;
 
-module.exports = { getItems, getItem, createItem };
+  //Checks if id is valid (so app does not crash)
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such item" });
+  }
+
+  const item = await Item.findOneAndUpdate(
+    { _id: id },
+    {
+      ...req.body, //sprea operator on the request body
+    }
+  );
+
+  if (!item) {
+    return res.status(404).json({ error: "No such item" });
+  }
+
+  res.status(200).json(item);
+};
+
+module.exports = { getItems, getItem, createItem, deleteItem, updateItem };

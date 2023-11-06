@@ -4,6 +4,8 @@ const {
   getItems,
   getItem,
   createItem,
+  deleteItem,
+  updateItem,
 } = require("../controllers/itemController");
 
 //creates the router
@@ -19,13 +21,9 @@ router.get("/:id", getItem);
 router.post("/", createItem);
 
 //DELETE a item
-router.delete("/:id", (req, res) => {
-  res.json({ mssg: "DELETE a new item" });
-});
+router.delete("/:id", deleteItem);
 
 //UPDATE  a item
-router.patch("/:id", (req, res) => {
-  res.json({ mssg: "UPDATE a new item" });
-});
+router.patch("/:id", updateItem);
 
 module.exports = router;
