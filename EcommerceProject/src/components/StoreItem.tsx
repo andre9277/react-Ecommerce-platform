@@ -3,13 +3,16 @@ import formatCurrency from "../utilities/formatCurrency";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 
 type StoreItemProps = {
-  id: number;
-  name: string;
+  _id: string;
+  title: string;
   price: number;
-  imgUrl: string;
+  imgURL: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 };
 
-const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
+const StoreItem = ({ _id, title, price, imgURL }: StoreItemProps) => {
   /* use Context to acces functions */
   const {
     getItemQuantity,
@@ -18,19 +21,19 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
     removeFromCart,
   } = useShoppingCart();
 
-  const quantity = getItemQuantity(id);
+  const quantity = getItemQuantity(_id);
 
   return (
     <Card className="h-100">
       <Card.Img
         variant="top"
-        src={imgUrl}
+        src={imgURL}
         height="200px"
         style={{ objectFit: "cover" }}
       />
       <Card.Body className="d-flex flex-column">
         <Card.Title className="d-flex justify-content-space-between align-items-baseline mb-4">
-          <span className="fs-2">{name}</span>
+          <span className="fs-2">{title}</span>
           <span className="ms-2 text-muted">{formatCurrency(price)}</span>
         </Card.Title>
 
@@ -49,16 +52,16 @@ const StoreItem = ({ id, name, price, imgUrl }: StoreItemProps) => {
                 className="d-flex align-items-center justify-content-center"
                 style={{ gap: ".5rem" }}
               >
-                <Button onClick={() => decreaseCartQuantity(id)}>-</Button>
+                <Button onClick={() => decreaseCartQuantity(_id)}>-</Button>
                 <div>
                   <span className="fs-3"> {quantity}</span> in cart
                 </div>
-                <Button onClick={() => increaseCartQuantity(id)}>+</Button>
+                <Button onClick={() => increaseCartQuantity(_id)}>+</Button>
               </div>
               <Button
                 variant="danger"
                 size="sm"
-                onClick={() => removeFromCart(id)}
+                onClick={() => removeFromCart(_id)}
               >
                 Remove
               </Button>
