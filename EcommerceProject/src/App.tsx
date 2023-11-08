@@ -5,6 +5,7 @@ import Store from "./pages/Store";
 import About from "./pages/About";
 import NavBar from "./components/NavBar";
 import { ShoppingCartProvider } from "./context/ShoppingCartContext";
+import AddItem from "./pages/AddItem";
 
 //Responsible for routing and generic code
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/store" element={<Store />} />
+          <Route path="/additem" element={<AddItem />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </Container>
