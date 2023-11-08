@@ -21,7 +21,7 @@ const StoreItem = ({ _id, title, price, imgURL }: StoreItemProps) => {
     removeFromCart,
   } = useShoppingCart();
 
-  const quantity = getItemQuantity(_id);
+  const quantity = getItemQuantity(parseInt(_id));
 
   return (
     <Card className="h-100">
@@ -39,7 +39,10 @@ const StoreItem = ({ _id, title, price, imgURL }: StoreItemProps) => {
 
         <div className="mt-auto">
           {quantity === 0 ? (
-            <Button className="w-100" onClick={() => increaseCartQuantity(id)}>
+            <Button
+              className="w-100"
+              onClick={() => increaseCartQuantity(parseInt(_id))}
+            >
               + Add To Cart
             </Button>
           ) : (
@@ -52,16 +55,20 @@ const StoreItem = ({ _id, title, price, imgURL }: StoreItemProps) => {
                 className="d-flex align-items-center justify-content-center"
                 style={{ gap: ".5rem" }}
               >
-                <Button onClick={() => decreaseCartQuantity(_id)}>-</Button>
+                <Button onClick={() => decreaseCartQuantity(parseInt(_id))}>
+                  -
+                </Button>
                 <div>
                   <span className="fs-3"> {quantity}</span> in cart
                 </div>
-                <Button onClick={() => increaseCartQuantity(_id)}>+</Button>
+                <Button onClick={() => increaseCartQuantity(parseInt(_id))}>
+                  +
+                </Button>
               </div>
               <Button
                 variant="danger"
                 size="sm"
-                onClick={() => removeFromCart(_id)}
+                onClick={() => removeFromCart(parseInt(_id))}
               >
                 Remove
               </Button>
