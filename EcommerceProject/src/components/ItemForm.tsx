@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useItemsContext } from "../hooks/useItemsContext";
 
 const ItemForm = () => {
+  const { dispatch } = useItemsContext();
+
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [imgURL, setImgURL] = useState("");
@@ -31,6 +34,7 @@ const ItemForm = () => {
       setImgURL("");
       setError(null);
       console.log("New Item Added", json);
+      dispatch({ type: "CREATE_ITEM", payload: json });
     }
   };
 

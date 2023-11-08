@@ -15,24 +15,11 @@ type ShoppingCartContext = {
   removeFromCart: (id: number) => void;
   cartQuantity: number;
   cartItems: CartItem[];
-  fetchItems: () => void;
-  items: StoreItemProps[];
 };
 
 type CartItem = {
   id: number;
   quantity: number;
-};
-
-//Items
-type StoreItemProps = {
-  _id: string;
-  title: string;
-  price: number;
-  imgURL: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
 };
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -48,8 +35,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     "shopping-cart",
     []
   );
-
-  const [items, setItems] = useState<StoreItemProps[]>([]);
 
   //Reads all the quantity values from the cart
   const cartQuantity = cartItems.reduce(
@@ -109,22 +94,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     });
   }
 
-  //Fetch data from database
-  const fetchItems = async () => {
-    try {
-      const apiUrl = import.meta.env.VITE_API_BASE_URL;
-      const response = await fetch(`${apiUrl}/api/items/`);
-      if (response.ok) {
-        const data = await response.json();
-        setItems(data);
-      } else {
-        console.error("Failed to fetch items");
-      }
-    } catch (error) {
-      console.error("An error occurred while fetching items:", error);
-    }
-  };
-
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -136,8 +105,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         cartQuantity,
         openCart,
         closeCart,
-        fetchItems,
-        items,
       }}
     >
       {children}
